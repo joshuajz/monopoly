@@ -1,0 +1,27 @@
+{% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block
+main %}
+<!-- Selector for Sessions/Diff. Runs -->
+
+<form method="post" action="/dashboard" style="text-align: left;">
+  <label for="ids">Sessions:</label>
+  <select name="ids" id="ids" onchange="this.form.submit()">
+    {% for id in ids %}
+    <option>{{id['session_id']}}</option>
+    {% endfor %}
+  </select>
+</form>
+<div style="text-align: left;">
+  <table class="table">
+    <label>Stats: </label>
+    <tr style="text-align: center;">
+      <td>Roll Amount: {{stat['roll_amount']}}</td>
+      <td>Original Roll Amount: {{stat['og_roll_amount']}}</td>
+      <td>Doubles Rolled: {{stat['doubles_rolled']}}</td>
+      <td>Jail via Rolling: {{stat['jail_via_rolling']}}</td>
+      <td>Jail via Landing: {{stat['jail_via_landing']}}</td>
+      <td>Jail via Chance: {{stat['jail_via_chance']}}</td>
+      <td>Turns in Jail: {{stat['turns_in_jail']}}</td>
+    </tr>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+/* Taken from cs50 finance */
+main .form-control {
+  /* center form controls */
+  display: inline-block;
+
+  /* override Bootstrap's 100% width for form controls */
+  width: auto;
+}
+
+.p-5 {
+  text-align: center;
+}
+
+/* Taken From https://bootsnipp.com/snippets/Qb71 */
+.error-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+.error-actions {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.error-actions .btn {
+  margin-right: 10px;
+}
+.td {
+  text-align: center;
+}
