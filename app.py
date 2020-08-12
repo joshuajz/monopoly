@@ -1,7 +1,9 @@
 # app.py
-# TODO: Register should redirect to login page
-# TODO: Login page
-# TODO: Sessions
+# TODO: Create a "home" page to display what the website does
+# TODO: Create a readme
+# TODO: Write a bunch of comments, clean up file system, remove not neeeded functions (Esp. from monopoly)
+# TODO: Clear database for final upload of files
+# TODO: CLear all extra todos from other files
 
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session, g, url_for
