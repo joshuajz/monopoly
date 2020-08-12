@@ -28,7 +28,7 @@
   - [Built With](#built-with)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
+- [Features](#features)
 - [License](#license)
 
 <!-- ABOUT THE PROJECT -->
@@ -83,8 +83,14 @@ flask run
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Features
+Provides user accounts to track each person's simulations.
+![alt-text](https://github.com/joshuajz/monopoly/blob/master/static/register.png "Registration Page")
 
+Allows a user to input a specific amount of rolls.
+![alt-text](https://github.com/joshuajz/monopoly/blob/master/static/simulate.png "Simulate")
+
+Provides a dashboard that displays the user's simulations, the stats, a graph, and a table with all of the information for each session. The form automaticlly submits when a new value is selected.
 ![alt-text](https://github.com/joshuajz/monopoly/blob/master/static/dashboard.png "Dashboard")
 
 
