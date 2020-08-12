@@ -216,6 +216,8 @@ def dashboard():
             "darkblue",
         ]
 
+        amount_landed = sum(landed.values())
+
         for value in landed.values():
             final_landed.append(
                 {
