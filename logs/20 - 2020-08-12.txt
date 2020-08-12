@@ -1,0 +1,52 @@
+session_id: 20
+
+Stats:
+	roll_amount: 37
+	og_roll_amount: 16
+	doubles_rolled: 6
+	jail_via_rolling: 2
+	jail_via_landing: 1
+	jail_via_chance: 0
+	turns_in_jail: 8
+
+Landed:
+	0. Go | 2
+	1. Banff | 0
+	2. Community Chest | 0
+	3. Beauceville | 0
+	4. Income Tax | 2
+	5. St. John's International Airport | 2
+	6. Vancouver | 0
+	7. Chance | 0
+	8. Toronto | 1
+	9. Ottawa | 1
+	10. Jail | 0
+	11. St.John's | 0
+	12. Cell Phone Service | 0
+	13. North Bay | 2
+	14. Kelowna | 1
+	15. Vancover International Airport | 1
+	16. Montreal | 1
+	17. Community Chest | 0
+	18. Chilliwack | 1
+	19. Kawartha Lakes | 0
+	20. Free Parking | 0
+	21. Shawinigan | 0
+	22. Chance | 0
+	23. Gatineau | 3
+	24. Medicine Hat | 1
+	25. Montreal Trudeau International Airport | 1
+	26. Trois-Rivieres | 0
+	27. Quebec City | 1
+	28. Internet Service | 0
+	29. Windsor | 1
+	30. Go To Jail | 1
+	31. Edmonton | 1
+	32. Sarnia | 1
+	33. Community Chest | 1
+	34. Calgary | 0
+	35. Toronto Pearson International Airport | 0
+	36. Chance | 0
+	37. Saint-Jean-Sur-Richelieu | 1
+	38. Luxury Tax | 0
+	39. Chatham-Kent | 1

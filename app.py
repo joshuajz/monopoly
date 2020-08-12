@@ -131,9 +131,12 @@ def simulate():
         amount = int(request.form.get("amount"))
         if 0 >= amount or amount >= 1000000:
             return error("422: Invalid Roll Amount", "/simulate")
-        roll_session = run_rolls(amount)
-
-        print(session["id"])
+        run_rolls(amount)
+        roll_session = db.execute("SELECT count(session_id) FROM landed")[0][
+            "count(session_id)"
+        ]
+        print("ROLL_SESSION: ")
+        print(roll_session)
 
         db.execute(
             "INSERT INTO user_sessions (user_id, session_id) VALUES (:id, :session)",
@@ -147,13 +150,24 @@ def simulate():
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    def dash(current_id="NULL"):
+    def dash(current_id):
         ids = db.execute(
             "SELECT session_id FROM user_sessions WHERE user_id = :id", id=session["id"]
         )
 
         if current_id == "NULL":
             current_id = ids[0]["session_id"]
+            id_list = []
+            for item in ids:
+                id_list.append(item["session_id"])
+        else:
+            id_list = []
+            for item in ids:
+                id_list.append(item["session_id"])
+            print(id_list)
+            print(id_list.index(int(current_id)))
+            id_list.pop(id_list.index(int(current_id)))
+            id_list.insert(0, current_id)
 
         stats = db.execute("SELECT * FROM stats WHERE session_id=:id", id=current_id)[0]
         landed = db.execute("SELECT * FROM landed WHERE session_id=:id", id=current_id)[
@@ -232,10 +246,12 @@ def dashboard():
             print(location)
 
         return render_template(
-            "dashboard.html", ids=ids, stat=stats, landed=final_landed
+            "dashboard.html", ids=id_list, stat=stats, landed=final_landed
         )
 
     if request.method == "POST":
+        print("form: ")
+        print(request.form.get("ids"))
         return dash(request.form.get("ids"))
     else:
-        return dash()
+        return dash("NULL")

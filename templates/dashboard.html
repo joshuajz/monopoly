@@ -15,7 +15,7 @@ main %}
   <label for="ids">Sessions:</label>
   <select name="ids" id="ids" onchange="this.form.submit()">
     {% for id in ids %}
-    <option>{{id['session_id']}}</option>
+    <option>{{id}}</option>
     {% endfor %}
   </select>
 </form>

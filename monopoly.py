@@ -48,31 +48,35 @@ from sys import argv
 from cs50 import SQL
 import os
 import datetime
-from classes import store_roll, session_id, store_landed, stats, cards
-import timeit
+import classes
 
-start = timeit.default_timer()
 
-# Opens the database
 db = SQL("sqlite:///database.db")
-
-# Session_id
-session_id = session_id(db)
-
-# Roll Storing class
-store_roll = store_roll(db, session_id.id)
-
-# Location Landed Storing Class
-store_landed = store_landed(db, session_id.id)
-
-# Stat Collection
-stats = stats(db, session_id.id)
-
-# Cards
-cards = cards(db, session_id.id)
 
 
 def run_rolls(num):
+    # Opens the database
+
+    # Session_id
+    global session_id
+    session_id = classes.session_id(db)
+
+    # Roll Storing class
+    global store_roll
+    store_roll = classes.store_roll(db, session_id.id)
+
+    # Location Landed Storing Class
+    global store_landed
+    store_landed = classes.store_landed(db, session_id.id)
+
+    # Stat Collection
+    global stats
+    stats = classes.stats(db, session_id.id)
+
+    # Cards
+    global cards
+    cards = classes.cards(db, session_id.id)
+
     # num = Number of rolls denoted by the user
 
     # Stores the original amount of rolls
@@ -289,9 +293,3 @@ def write_stats(database):
         f.write(f"\n\t{i}. {data[i]['name']} | {x[str(i)]}")
 
     f.close()
-
-
-# main()
-
-stop = timeit.default_timer()
-print("Time: ", stop - start)
