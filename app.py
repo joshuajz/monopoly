@@ -151,11 +151,14 @@ def dashboard():
         ids = db.execute(
             "SELECT session_id FROM user_sessions WHERE user_id = :id", id=session["id"]
         )
+
         if current_id == "NULL":
             current_id = ids[0]["session_id"]
 
         stats = db.execute("SELECT * FROM stats WHERE session_id=:id", id=current_id)[0]
-        landed = db.execute("SELECT * FROM landed WHERE session_id=0")[0]
+        landed = db.execute("SELECT * FROM landed WHERE session_id=:id", id=current_id)[
+            0
+        ]
         landed.pop("session_id")
         l = tuple(landed.values())
 
@@ -167,8 +170,6 @@ def dashboard():
         # landed percentage
 
         board_info = db.execute("SELECT name FROM board")
-
-        amount_landed = sum(landed.values())
 
         final_landed = []
 
