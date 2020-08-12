@@ -85,7 +85,7 @@ flask run
 
 ## Usage
 
-![alt-text])()
+![alt-text](https://github.com/joshuajz/monopoly/blob/master/static/dashboard.png "Dashboard")
 
 
 <!-- LICENSE -->
