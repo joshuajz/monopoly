@@ -1,0 +1,29 @@
+{% extends "layout.html" %} {% block title %}Home{% endblock %} {% block main %}
+
+<h1>A simple Monopoly Simulation</h1>
+<p>
+  A program created to allow someone to simulate "rolls" or turns in a game of
+  Monopoly. This project was based off the Canadian version of monopoly.
+  Utilizes Flask, Sqlite, HTML & CSS.
+</p>
+
+<table>
+  <tr>
+    <td>
+      <img src="{{url_for('static', filename='simulate.png')}}" />
+      <label>Allows a user to input a specific amount of rolls.</label>
+    </td>
+    <td>
+      <img src="{{url_for('static', filename='register.png')}}" />
+      <label>Provides user accounts to track each person's simulations.</label>
+    </td>
+  </tr>
+</table>
+<img src="{{url_for('static', filename='dashboard.png')}}" />
+<label
+  >Provides a dashboard that displays the user's simulations, the stats, a
+  graph, and a table with all of the information for each session. The form
+  automaticlly submits when a new value is selected.</label
+>
+
+{% endblock %}

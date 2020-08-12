@@ -34,6 +34,7 @@ def login_required(f):
 
 
 @app.route("/logout")
+@login_required
 def logout():
     session.clear()
     return redirect("/")
@@ -41,7 +42,7 @@ def logout():
 
 @app.route("/")
 def index():
-    return render_template("layout.html", session=session)
+    return render_template("home.html")
 
 
 @app.route("/error")
@@ -122,6 +123,7 @@ def login():
 
 
 @app.route("/simulate", methods=["GET", "POST"])
+@login_required
 def simulate():
     if request.method == "GET":
         return render_template("simulate.html")
@@ -138,6 +140,8 @@ def simulate():
             id=session["id"],
             session=roll_session,
         )
+
+        return redirect("/dashboard")
 
 
 @app.route("/dashboard", methods=["GET", "POST"])
