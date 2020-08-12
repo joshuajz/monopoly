@@ -72,19 +72,8 @@ stats = stats(db, session_id.id)
 cards = cards(db, session_id.id)
 
 
-def main():
-    if len(argv) != 2:
-        print("Invalid commandline arguments: python monopoly.py [amount of rolls]")
-        return 0
-
-    num = argv[1]
-
-    if num.isnumeric() != True:
-        print("Invalid commandline arguments: python monopoly.py [amount of rolls]")
-        return 0
-
-    # Number of rolls denoted by the user
-    num = int(num)
+def run_rolls(num):
+    # num = Number of rolls denoted by the user
 
     # Stores the original amount of rolls
     stats.store("og_roll_amount", num)
@@ -187,6 +176,8 @@ def main():
 
     # Write all of the stats to a log file
     write_stats(db)
+
+    return session_id.id
 
 
 def diceRoll():
@@ -300,7 +291,7 @@ def write_stats(database):
     f.close()
 
 
-main()
+# main()
 
 stop = timeit.default_timer()
 print("Time: ", stop - start)

@@ -7,7 +7,7 @@ from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session, g, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
-
+from monopoly import run_rolls
 from graphing import graph
 
 
@@ -29,6 +29,12 @@ def login_required(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")
 
 
 @app.route("/")
@@ -113,18 +119,114 @@ def login():
         return redirect("/dashboard")
 
 
+@app.route("/simulate", methods=["GET", "POST"])
+def simulate():
+    if request.method == "GET":
+        return render_template("simulate.html")
+    else:
+        amount = int(request.form.get("amount"))
+        if 0 >= amount or amount >= 1000000:
+            return error("422: Invalid Roll Amount", "/simulate")
+        roll_session = run_rolls(amount)
+
+        print(session["id"])
+
+        db.execute(
+            "INSERT INTO user_sessions (user_id, session_id) VALUES (:id, :session)",
+            id=session["id"],
+            session=roll_session,
+        )
+
+
 @app.route("/dashboard", methods=["GET", "POST"])
 @login_required
 def dashboard():
-    if request.method == "POST":
-        print("Submitted form")
-    else:
-        ids = db.execute("SELECT session_id FROM user_sessions WHERE user_id = 0")
-        current_id = 17
+    def dash(current_id="NULL"):
+        ids = db.execute(
+            "SELECT session_id FROM user_sessions WHERE user_id = :id", id=session["id"]
+        )
+        if current_id == "NULL":
+            current_id = ids[0]["session_id"]
+
         stats = db.execute("SELECT * FROM stats WHERE session_id=:id", id=current_id)[0]
-        landed = db.execute("SELECT * FROM landed WHERE session_id=17")[0]
+        landed = db.execute("SELECT * FROM landed WHERE session_id=0")[0]
         landed.pop("session_id")
         l = tuple(landed.values())
-        print(l)
+
         graph(l, 17)
-        return render_template("dashboard.html", ids=ids, stat=stats)
+
+        # landed needs to be a list/dictionary w/
+        # location name (w/ a colur)
+        # landed amount
+        # landed percentage
+
+        board_info = db.execute("SELECT name FROM board")
+
+        amount_landed = sum(landed.values())
+
+        final_landed = []
+
+        colours = [
+            "black",
+            "brown",
+            "grey",
+            "brown",
+            "grey",
+            "#03b6fc",
+            "blue",
+            "grey",
+            "blue",
+            "blue",
+            "black",
+            "purple",
+            "grey",
+            "purple",
+            "purple",
+            "#03b6fc",
+            "orange",
+            "grey",
+            "orange",
+            "orange",
+            "black",
+            "red",
+            "grey",
+            "red",
+            "red",
+            "#03b6fc",
+            "#cfc50a",
+            "#cfc50a",
+            "grey",
+            "#cfc50a",
+            "black",
+            "green",
+            "green",
+            "grey",
+            "green",
+            "#03b6fc",
+            "grey",
+            "darkblue",
+            "darkblack",
+            "darkblue",
+        ]
+
+        for value in landed.values():
+            final_landed.append(
+                {
+                    "name": board_info.pop(0)["name"],
+                    "colour": colours.pop(0),
+                    "landed_amount": value,
+                    "landed_percentage": value / amount_landed * 100,
+                }
+            )
+
+        for location in final_landed:
+            print(location)
+
+        return render_template(
+            "dashboard.html", ids=ids, stat=stats, landed=final_landed
+        )
+
+    if request.method == "POST":
+        return dash(request.form.get("ids"))
+    else:
+        return dash()

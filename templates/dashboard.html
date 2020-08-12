@@ -1,7 +1,16 @@
 {% extends "layout.html" %} {% block title %}Dashboard{% endblock %} {% block
 main %}
-<!-- Selector for Sessions/Diff. Runs -->
 
+<!-- http://net-informations.com/jq/iq/hide.htm -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function () {
+    $("#btn").on("click", function (e) {
+      $("#myImg").toggle(0);
+    });
+  });
+</script>
+<!-- Selector for Sessions/Diff. Runs -->
 <form method="post" action="/dashboard" style="text-align: left;">
   <label for="ids">Sessions:</label>
   <select name="ids" id="ids" onchange="this.form.submit()">
@@ -22,6 +31,26 @@ main %}
       <td>Jail via Chance: {{stat['jail_via_chance']}}</td>
       <td>Turns in Jail: {{stat['turns_in_jail']}}</td>
     </tr>
+  </table>
+</div>
+<div>
+  <button type="button" id="btn">Show/Hide Image</button>
+  <img src="{{url_for('static', filename='graphs/17.jpg') }}" id="myImg" />
+</div>
+<div>
+  <table class="table">
+    <tr>
+      <th>Location</th>
+      <th>Landed Amount</th>
+      <th>Landed Percentage</th>
+    </tr>
+    {% for location in landed %}
+    <tr>
+      <td style="color: {{location['colour']}}">{{location['name']}}</td>
+      <td>{{location['landed_amount']}}</td>
+      <td>{{location['landed_percentage']}}%</td>
+    </tr>
+    {% endfor %}
   </table>
 </div>
 {% endblock %}

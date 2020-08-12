@@ -1,3 +1,6 @@
+import matplotlib
+
+matplotlib.use("Agg")
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -113,8 +116,9 @@ def graph(values, session_id):
 
     plt.tight_layout()
 
-    plt.savefig(str(session_id) + ".png")
+    plt.savefig("static/graphs/" + str(session_id) + ".jpg")
+
+    plt.clf()
 
     # DEBUGGING: Shows the graph
-    plt.show()
-
+    # plt.show()
