@@ -119,7 +119,7 @@ def login():
         session["username"] = user["username"]
         session["id"] = user["user_id"]
         print("DEBUG:Successful Login")
-        return redirect("/dashboard")
+        return redirect("/simulate")
 
 
 @app.route("/simulate", methods=["GET", "POST"])
